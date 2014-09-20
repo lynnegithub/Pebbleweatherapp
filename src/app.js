@@ -3,21 +3,138 @@ var ajax = require('ajax');
 var Vector2 = require('vector2');
 var Accel = require('ui/accel');//for access the accelerometer 
 var Vibe = require('ui/vibe');
+var chooseIcon=function(id,time,icon) {
+var inttime=parseInt(time.subtring(time.indexOf(' ')+1,time.indexOf(':')));
+  switch (id) {
+    default:
+      icon='';
+      break;
+    case 300:
+    case 301:
+    case 302:
+    case 310:
+    case 311:
+    case 312:
+    case 313:
+    case 314:
+    case 321:
+    case 520:
+    case 521:
+    case 522:
+    case 531:
+      
+        icon = 'images/09d.png';
+        break;
+      
+    case 500:
+    case 501:
+    case 502:
+    case 503:
+    case 504:
+      
+        icon = 'images/10d.png';
+        break;
+      
+    case 200:
+    case 201:
+    case 201:
+    case 210:
+    case 211:
+    case 212:
+    case 221:
+    case 230:
+    case 231:
+    case 232:
+  
+       icon = 'images/11d.png';
+        break;
+      
+    case 511:
+    case 600:
+    case 601:
+    case 602:
+    case 611:
+    case 612:
+    case 615:
+    case 616:
+    case 620:
+    case 621:
+    case 622:
+      
+        icon = 'images/13d.png';
+        break;
+      
+    case 701:
+    case 711:
+    case 721:
+    case 731:
+    case 741:
+    case 751:
+    case 761:
+    case 762:
+    case 771:
+    case 781:
+        icon = 'images/50d.png';
+        break;
+      
+    case 800:
+      if(inttime>20){
+        icon = 'images/01n.png';
+      }
+      else
+      {
+        icon = 'images/01d.png'; 
+      }
+
+        break;
+   case 801:
+      if(inttime>20){
+        icon = 'images/02n.png';
+      }
+      else
+      {
+        icon = 'images/02d.png'; 
+      }
+
+        break;
+    case 802:
+
+        icon = 'images/03d.png'; 
+
+
+        break;
+    case 803:
+      if(inttime>20){
+        icon = 'images/04d.png';
+      }
+      else
+      {
+        icon = 'images/03d.png'; 
+      }
+
+        break;
+    case 804:
+
+        icon = 'images/04d.png'; 
+        break;
+  }
+};
 var parseFeed = function(data, quantity) {
   var items = [];
   for(var i = 0; i < quantity; i++) {
     // Always upper case the description string
     var title = data.list[i].weather[0].main;
     title = title.charAt(0).toUpperCase() + title.substring(1);
-
+    var id = data.list[i].weather[0].id;
     // Get date/time substring
     var time = data.list[i].dt_txt;
     time = time.substring(time.indexOf('-') + 1, time.indexOf(':') + 3);
-
+    var icon = chooseIcon(id,time,icon);
     // Add to menu items array
     items.push({
       title:title,
-      subtitle:time
+      subtitle:time,
+      icon:icon
     });
   }
 
@@ -34,8 +151,8 @@ var splashWindow = new UI.Window({
 var text = new UI.Text({
   position: new Vector2(0, 30),
   size: new Vector2(144, 40),
-  text:'Downloading weather data...',
-  font:'GOTHIC_28_BOLD',
+  text:'Trying hard to load:)',
+  font:'GOTHIC_14',
   color:'black',
   textOverflow:'wrap',
   textAlign:'center'
@@ -59,7 +176,8 @@ ajax(
     var resultsMenu = new UI.Menu({
       sections: [{
         title: 'Current Forecast',
-        items: menuItems
+        items: menuItems,
+        icon:'images/sun79.png'
       }]
     });
     //add feature for the menu
