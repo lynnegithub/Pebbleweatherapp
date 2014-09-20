@@ -3,12 +3,13 @@ var ajax = require('ajax');
 var Vector2 = require('vector2');
 var Accel = require('ui/accel');//for access the accelerometer 
 var Vibe = require('ui/vibe');
-var chooseIcon=function(id,time,icon) {
-var inttime=parseInt(time.subtring(time.indexOf(' ')+1,time.indexOf(':')));
+var chooseIcon=function(id,time) {
+ // var icon;
+  var inttime = parseInt(time.substring(time.indexOf(' ')+1,time.indexOf(':')));
   switch (id) {
     default:
-      icon='';
-      break;
+      return '';
+ //     break;
     case 300:
     case 301:
     case 302:
@@ -23,8 +24,8 @@ var inttime=parseInt(time.subtring(time.indexOf(' ')+1,time.indexOf(':')));
     case 522:
     case 531:
       
-        icon = 'images/09d.png';
-        break;
+        return 'images/09d.png';
+  //      break;
       
     case 500:
     case 501:
@@ -32,8 +33,8 @@ var inttime=parseInt(time.subtring(time.indexOf(' ')+1,time.indexOf(':')));
     case 503:
     case 504:
       
-        icon = 'images/10d.png';
-        break;
+        return 'images/10d.png';
+  //      break;
       
     case 200:
     case 201:
@@ -46,8 +47,8 @@ var inttime=parseInt(time.subtring(time.indexOf(' ')+1,time.indexOf(':')));
     case 231:
     case 232:
   
-       icon = 'images/11d.png';
-        break;
+      return 'images/11d.png';
+      //  break;
       
     case 511:
     case 600:
@@ -61,8 +62,8 @@ var inttime=parseInt(time.subtring(time.indexOf(' ')+1,time.indexOf(':')));
     case 621:
     case 622:
       
-        icon = 'images/13d.png';
-        break;
+        return 'images/13d.png';
+     //   break;
       
     case 701:
     case 711:
@@ -74,49 +75,49 @@ var inttime=parseInt(time.subtring(time.indexOf(' ')+1,time.indexOf(':')));
     case 762:
     case 771:
     case 781:
-        icon = 'images/50d.png';
-        break;
+       return 'images/50d.png';
+     //   break;
       
     case 800:
       if(inttime>20){
-        icon = 'images/01n.png';
+        return 'images/01n.png';
       }
       else
       {
-        icon = 'images/01d.png'; 
+       return 'images/01d.png'; 
       }
 
         break;
    case 801:
       if(inttime>20){
-        icon = 'images/02n.png';
+       return 'images/02n.png';
       }
       else
       {
-        icon = 'images/02d.png'; 
+        return 'images/02d.png'; 
       }
 
         break;
     case 802:
 
-        icon = 'images/03d.png'; 
+        return 'images/03d.png'; 
 
 
-        break;
+      //  break;
     case 803:
-      if(inttime>20){
-        icon = 'images/04d.png';
+      if(inttime > 20){
+        return 'images/04d.png';
       }
       else
       {
-        icon = 'images/03d.png'; 
+        return 'images/03d.png'; 
       }
 
         break;
     case 804:
 
-        icon = 'images/04d.png'; 
-        break;
+        return 'images/04d.png'; 
+      //  break;
   }
 };
 var parseFeed = function(data, quantity) {
@@ -129,7 +130,8 @@ var parseFeed = function(data, quantity) {
     // Get date/time substring
     var time = data.list[i].dt_txt;
     time = time.substring(time.indexOf('-') + 1, time.indexOf(':') + 3);
-    var icon = chooseIcon(id,time,icon);
+    var icon =chooseIcon(id,time);
+    console.log(icon);
     // Add to menu items array
     items.push({
       title:title,
