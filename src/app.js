@@ -120,6 +120,17 @@ var cityMenu = new UI.Menu({
   
 });
 cityMenu.show();
+/*cityMenu.on('accelTap', function(e){
+  if(e.axis === 'z' && e.direction === '1'){
+    
+  }
+  else if(e.axis === 'z' && e.direction === '-1')
+  {
+    
+    
+  }
+  
+}*/
 cityMenu.on('select',function(e){
 
   ajax(
@@ -154,9 +165,10 @@ cityMenu.on('select',function(e){
         '\nWind: ' + Math.round(forecast.wind.speed) + ' mph, ' + 
         Math.round(forecast.wind.deg) + '°';
       var detailCard = new UI.Card({
-        title:'Details',
+        title:'More Information',
         subtitle:g.item.subtitle,
-        body: content
+        body: content,
+        scrollable:true
       });
       detailCard.show();
       });
@@ -164,11 +176,9 @@ cityMenu.on('select',function(e){
   
       // Show the Menu, hide the splash
       resultsMenu.show();
-      //this.hide();
   
     resultsMenu.on('accelTap', function(f) {
         // Make another request to openweathermap.org
-      //var selectCity=
         ajax(
           {
             url:'http://api.openweathermap.org/data/2.5/forecast?q='+e.item.title,
@@ -197,3 +207,7 @@ cityMenu.on('select',function(e){
 });
     // Prepare the accelerometer
     Accel.init();
+/*Accel.on('tap', function(e) {
+   Vibe.vibrate('short');
+  console.log('Tap event on axis: ' + e.axis + ' and direction: ' + e.direction);
+});*/
